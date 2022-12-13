@@ -33,8 +33,10 @@ public class Database{
     public void AddStaff(Staff staff){
         People[currentIndex++]=staff;
     }
-    public void PrintAll(int i){
+    public void PrintAll(){
+        for(int i=0;i<currentIndex;i++){
         Console.WriteLine( People[i]);
+        }
     }
 }
 
@@ -88,10 +90,8 @@ private static void Main(){
         database.AddStaff(staff);
         break;
         case 3:
-        for (int i = 0; i < 50; i++)
-        {
-            database.PrintAll(i);
-        }
+            database.PrintAll();
+        
         break;
         default:
         return;
