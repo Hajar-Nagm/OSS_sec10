@@ -10,7 +10,9 @@ public abstract class Person{
         Age=age;
     }
 
-    public abstract void Print();
+    public abstract void Print(){
+        
+    }
 }
 
 public class Student :Person{
@@ -51,15 +53,39 @@ public override void Print(){
 public  class Program{
 
 private static void Main(){
-var database=new DataBase();
-Console.Write("Name: ");
-var name=Console.Readline();
-Console.Write("Age: ");
-var age =Convert.ToInt32(Console.Readline());
-Console.Write("Gpa: ");
-var gpa = Convert.ToString(Console.Readline);
-var student =new Student(name,age,year,gpa);
-database.AddStudent(student);
+    Console.WriteLine("enter a number 1)student 2)staff 3)print all peaple")
+    int x=Convert.ToInt32(Console.Readline());
+    var database=new DataBase();
+    switch (x)
+    {
+        case 1:
+        Console.Write("Name: ");
+        var name=Console.Readline();
+        Console.Write("Age: ");
+        var age =Convert.ToInt32(Console.Readline());
+        Console.Write("Gpa: ");
+        var gpa = Convert.ToString(Console.Readline);
+        var student =new Student(name,age,year,gpa);
+        database.AddStudent(student);
+        break;
+        
+        case 2:
+        Console.Write("Name: ");
+        var name=Console.Readline();
+        Console.Write("Age: ");
+        var age =Convert.ToInt32(Console.Readline());
+        Console.Write("Salary: ");
+        var salary = Convert.ToDouble(Console.Readline);
+        Console.Write("JoinYear: ");
+        var joinyear = Convert.ToInt32(Console.Readline);
+        var staff =new Staff(name,age,salary,joinyear);
+        database.AddStaff(staff);
+        break;
+        case 3:
+        Print();
+        break;
+    }
+
 
 }
 }
