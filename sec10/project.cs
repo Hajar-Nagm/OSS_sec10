@@ -15,7 +15,7 @@ public abstract class Person{
 
 public class Student :Person{
     public int Year;
-    Public float Gpa;
+    public float Gpa;
     public Student (string name,int age,float gpa ):base(name,age){
         Year=year;
         Gpa=gpa;
@@ -30,6 +30,20 @@ public class Database{
     public void AddStudent(Student student){
         People[currentIndex++]=student;
     }
+}
+
+public class Staff :Person{
+
+public double Salary;
+public int JoinYear;
+public ctor (string name,int age,double salary ,int joinyear):base(name,age){
+Salary=salary;
+JoinYear=joinyear;
+}
+public override void Print(){
+        Console.WriteLine($"My name is{Name},my age is{Age},and my salary is {Salary}");
+    }
+
 }
 public  class Program{
 
