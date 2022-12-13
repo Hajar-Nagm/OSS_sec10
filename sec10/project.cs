@@ -1,66 +1,73 @@
 using System;
 namespace Hajar;
-public abstract class Person{
 
+public  class Person{
     public string Name;
     public int Age;
-
+    
     public Person(string name, int age ){
         Name=name;
         Age=age;
     }
-
-    public abstract void Print();
+    public virtual void Print(){
+        Console.WriteLine($"My name is {Name}, my age is {Age}");
+    }
 }
 
 public class Student :Person{
     public int Year;
     public float Gpa;
+    
     public Student (string name,int age,int year,float gpa ):base(name,age){
         Year=year;
         Gpa=gpa;
     }
     public override void Print(){
-        Console.WriteLine($"My name is{Name},my age is{Age},and gpa is {Gpa}");
+        Console.WriteLine($"My name is {Name}, my age is {Age}, and gpa is {Gpa}");
     }
 }
 public class Database{
     public Person[] People=new Person[50];
     private int currentIndex=0;
+    
     public void AddStudent(Student student){
         People[currentIndex++]=student;
     }
     public void AddStaff(Staff staff){
         People[currentIndex++]=staff;
     }
+    public void AddPerson(Person person){
+        People[currentIndex++]=person;
+    }
     public void PrintAll(){
         for(int i=0;i<currentIndex;i++){
-        Console.WriteLine( People[i]);
+        People[i].Print();
         }
     }
 }
 
 public class Staff :Person{
-
-public double Salary;
-public int JoinYear;
-public Staff (string name,int age,double salary ,int joinyear):base(name,age){
-Salary=salary;
-JoinYear=joinyear;
-}
-public override void Print(){
-        Console.WriteLine($"My name is{Name},my age is{Age},and my salary is {Salary}");
+    public double Salary;
+    public int JoinYear;
+    
+    public Staff (string name,int age,double salary ,int joinyear):base(name,age){
+    Salary=salary;
+    JoinYear=joinyear;
     }
+    public override void Print(){
+            Console.WriteLine($"My name is {Name}, my age is {Age}, and my salary is {Salary}");
+        }
 
 }
 public  class Program{
 
 private static void Main(){
-    Console.WriteLine("enter a number 1)student 2)staff 3)print all peaple");
+    Console.WriteLine("enter a number 1)student 2)staff 3)print all peaple 4)person \"not a student and not a staff\"");
     int x=1;
     var database=new Database();
     while (x!=0)
     {
+        Console.Write("Option: ");
         x=Convert.ToInt32(Console.ReadLine());
         switch (x)
     {
@@ -76,7 +83,7 @@ private static void Main(){
         var student =new Student(name,age,year,gpa);
         database.AddStudent(student);
         break;
-        
+                
         case 2:
         Console.Write("Name: ");
         name=Console.ReadLine();
@@ -89,10 +96,20 @@ private static void Main(){
         var staff =new Staff(name,age,salary,joinyear);
         database.AddStaff(staff);
         break;
+                
         case 3:
             database.PrintAll();
-        
         break;
+                
+        case 4:
+        Console.Write("Name: ");
+        name=Console.ReadLine();
+        Console.Write("Age: ");
+        age =Convert.ToInt32(Console.ReadLine());
+        var person =new Person(name,age);
+        database.AddPerson(person);
+        break;
+                
         default:
         return;
     }
