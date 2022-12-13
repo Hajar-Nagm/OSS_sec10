@@ -10,15 +10,13 @@ public abstract class Person{
         Age=age;
     }
 
-    public abstract void Print(){
-        
-    }
+    public abstract void Print();
 }
 
 public class Student :Person{
     public int Year;
     public float Gpa;
-    public Student (string name,int age,float gpa ):base(name,age){
+    public Student (string name,int age,int year,float gpa ):base(name,age){
         Year=year;
         Gpa=gpa;
     }
@@ -28,7 +26,7 @@ public class Student :Person{
 }
 public class Database{
     public Person[] People=new Person[50];
-
+    private int currentIndex=0;
     public void AddStudent(Student student){
         People[currentIndex++]=student;
     }
@@ -41,7 +39,7 @@ public class Staff :Person{
 
 public double Salary;
 public int JoinYear;
-public ctor (string name,int age,double salary ,int joinyear):base(name,age){
+public Staff (string name,int age,double salary ,int joinyear):base(name,age){
 Salary=salary;
 JoinYear=joinyear;
 }
@@ -53,36 +51,41 @@ public override void Print(){
 public  class Program{
 
 private static void Main(){
-    Console.WriteLine("enter a number 1)student 2)staff 3)print all peaple")
-    int x=Convert.ToInt32(Console.Readline());
+    Console.WriteLine("enter a number 1)student 2)staff 3)print all peaple");
+    int x=Convert.ToInt32(Console.ReadLine());
     var database=new DataBase();
     switch (x)
     {
         case 1:
         Console.Write("Name: ");
-        var name=Console.Readline();
+        var name=Console.ReadLine();
         Console.Write("Age: ");
-        var age =Convert.ToInt32(Console.Readline());
+        var age =Convert.ToInt32(Console.ReadLine());
+        Console.Write("Year: ");
+        var year =Convert.ToInt32(Console.ReadLine());
         Console.Write("Gpa: ");
-        var gpa = Convert.ToString(Console.Readline);
+        var gpa = Convert.ToString(Console.ReadLine());
         var student =new Student(name,age,year,gpa);
         database.AddStudent(student);
         break;
         
         case 2:
         Console.Write("Name: ");
-        var name=Console.Readline();
+        var name=Console.ReadLine();
         Console.Write("Age: ");
-        var age =Convert.ToInt32(Console.Readline());
+        var age =Convert.ToInt32(Console.ReadLine());
         Console.Write("Salary: ");
-        var salary = Convert.ToDouble(Console.Readline);
+        var salary = Convert.ToDouble(Console.ReadLine());
         Console.Write("JoinYear: ");
-        var joinyear = Convert.ToInt32(Console.Readline);
+        var joinyear = Convert.ToInt32(Console.ReadLine());
         var staff =new Staff(name,age,salary,joinyear);
         database.AddStaff(staff);
         break;
         case 3:
-        Print();
+        for (int i = 0; i < 50; i++)
+        {
+            Console.WriteLine(Person[i]);
+        }
         break;
     }
 
