@@ -33,6 +33,9 @@ public class Database{
     public void AddStaff(Staff staff){
         People[currentIndex++]=staff;
     }
+    public void PrintAll(int i){
+        Console.WriteLine( People[i]);
+    }
 }
 
 public class Staff :Person{
@@ -52,9 +55,12 @@ public  class Program{
 
 private static void Main(){
     Console.WriteLine("enter a number 1)student 2)staff 3)print all peaple");
-    int x=Convert.ToInt32(Console.ReadLine());
-    var database=new DataBase();
-    switch (x)
+    int x=1;
+    var database=new Database();
+    while (x!=0)
+    {
+        x=Convert.ToInt32(Console.ReadLine());
+        switch (x)
     {
         case 1:
         Console.Write("Name: ");
@@ -64,16 +70,16 @@ private static void Main(){
         Console.Write("Year: ");
         var year =Convert.ToInt32(Console.ReadLine());
         Console.Write("Gpa: ");
-        var gpa = Convert.ToString(Console.ReadLine());
+        var gpa = Convert.ToSingle(Console.ReadLine());
         var student =new Student(name,age,year,gpa);
         database.AddStudent(student);
         break;
         
         case 2:
         Console.Write("Name: ");
-        var name=Console.ReadLine();
+        name=Console.ReadLine();
         Console.Write("Age: ");
-        var age =Convert.ToInt32(Console.ReadLine());
+        age =Convert.ToInt32(Console.ReadLine());
         Console.Write("Salary: ");
         var salary = Convert.ToDouble(Console.ReadLine());
         Console.Write("JoinYear: ");
@@ -84,11 +90,13 @@ private static void Main(){
         case 3:
         for (int i = 0; i < 50; i++)
         {
-            Console.WriteLine(Person[i]);
+            database.PrintAll(i);
         }
         break;
+        default:
+        return;
     }
-
+    }
 
 }
 }
