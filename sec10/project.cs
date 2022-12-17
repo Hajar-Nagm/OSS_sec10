@@ -2,28 +2,85 @@ using System;
 namespace Hajar;
 
 public  class Person{
-    public string Name;
-    public int Age;
+    /* properities
+    private string _name;
+    public string Name {
+        get { return _name ;}
+        set
+        {
+            if (value==null || value=="" || value.Length>=32){
+                throw new Exception("Invalid Name");
+            }
+            _name=value; 
+        }
+        }
+    */
+    private string _name;
+    private int _age;
     
     public Person(string name, int age ){
-        Name=name;
-        Age=age;
+        if(name==null || name=="" || name.Length>=32)
+        {
+            throw new Exception("Invalid name");
+        }
+        if(age<=0 || age>128)
+        {
+            throw new Exception("Invalid age");
+        }
+        _name=name;
+        _age=age;
+    }
+    public string GetName() => _name;
+    public int GetAge()=>_age;
+    public void SetName(string name){
+        if(name==null || name=="" || name.Length>=32)
+        {
+            throw new Exception("Invalid name");
+        }
+        _name=name;
+    }
+    public void SetAge(int age){
+        if(age<=0||age>128)
+        {
+            throw new Exception("Invalid age");
+        }
+        _age=age;
     }
     public virtual void Print(){
-        Console.WriteLine($"My name is {Name}, my age is {Age}");
+        Console.WriteLine($"My name is {GetName()}, my age is {GetAge()}");
     }
 }
 
 public class Student :Person{
-    public int Year;
-    public float Gpa;
+    private int _year;
+    private float _gpa;
     
     public Student (string name,int age,int year,float gpa ):base(name,age){
-        Year=year;
-        Gpa=gpa;
+        if(year<1||year>5){
+            throw new Exception("Invalid year");
+        }
+        if(gpa<0||gpa>4){
+            throw new Exception("Invalid gpa");
+        }
+        _year=year;
+        _gpa=gpa;
+    }
+    public int GetYear() => _year;
+    public float GetGpa()=>_gpa;
+    public void SetYear(int year){
+        if(year<1||year>5){
+            throw new Exception("Invalid year");
+        }
+        _year=year;
+    }
+    public void SetGpa(float gpa){
+        if(gpa<0||gpa>4){
+            throw new Exception("Invalid gpa");
+        }
+        _gpa=gpa;
     }
     public override void Print(){
-        Console.WriteLine($"My name is {Name}, my age is {Age}, and gpa is {Gpa}");
+        Console.WriteLine($"My name is {GetName()}, my age is {GetAge()}, and gpa is {GetGpa()}");
     }
 }
 public class Database{
@@ -47,15 +104,38 @@ public class Database{
 }
 
 public class Staff :Person{
-    public double Salary;
-    public int JoinYear;
+    private double _salary;
+    private int _joinYear;
+    
     
     public Staff (string name,int age,double salary ,int joinyear):base(name,age){
-    Salary=salary;
-    JoinYear=joinyear;
+        if(salary<0 || salary>120000){
+            throw new Exception("Invalid salary");
+        }
+        int diff=joinyear-age;
+        if(diff!=21){
+            throw new Exception("Invalid join year");
+        }
+    _salary=salary;
+    _joinYear=joinyear;
+    }
+    public double GetSalary() => _salary;
+    public int GetJoinYear()=>_joinYear;
+    public void SetSalary(double salary){
+        if(salary<0 || salary>120000){
+            throw new Exception("Invalid salary");
+        }
+        _salary=salary;
+    }
+    public void SetJoinYear(int joinyear){
+        int diff=GetJoinYear()-GetAge();
+        if(diff!=21){
+            throw new Exception("Invalid join year");
+        }
+        _joinYear=joinyear;
     }
     public override void Print(){
-            Console.WriteLine($"My name is {Name}, my age is {Age}, and my salary is {Salary}");
+            Console.WriteLine($"My name is {GetName()}, my age is {GetAge()}, and my salary is {GetSalary()}");
         }
 
 }
@@ -80,8 +160,16 @@ private static void Main(){
         var year =Convert.ToInt32(Console.ReadLine());
         Console.Write("Gpa: ");
         var gpa = Convert.ToSingle(Console.ReadLine());
-        var student =new Student(name,age,year,gpa);
-        database.AddStudent(student);
+        try
+        {
+            var student =new Student(name,age,year,gpa);
+            database.AddStudent(student);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        
         break;
                 
         case 2:
@@ -93,8 +181,16 @@ private static void Main(){
         var salary = Convert.ToDouble(Console.ReadLine());
         Console.Write("JoinYear: ");
         var joinyear = Convert.ToInt32(Console.ReadLine());
-        var staff =new Staff(name,age,salary,joinyear);
-        database.AddStaff(staff);
+        try
+        {
+            var staff =new Staff(name,age,salary,joinyear);
+            database.AddStaff(staff);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        
         break;
                 
         case 3:
@@ -106,8 +202,16 @@ private static void Main(){
         name=Console.ReadLine();
         Console.Write("Age: ");
         age =Convert.ToInt32(Console.ReadLine());
-        var person =new Person(name,age);
-        database.AddPerson(person);
+        try
+        {
+            var person=new Person(name,age);
+            database.AddPerson(person);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        
         break;
                 
         default:
