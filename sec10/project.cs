@@ -113,7 +113,7 @@ public class Staff :Person{
             throw new Exception("Invalid salary");
         }
         int diff=joinyear-age;
-        if(diff!=21){
+        if(diff<21){
             throw new Exception("Invalid join year");
         }
     _salary=salary;
@@ -129,7 +129,7 @@ public class Staff :Person{
     }
     public void SetJoinYear(int joinyear){
         int diff=GetJoinYear()-GetAge();
-        if(diff!=21){
+        if(diff<21){
             throw new Exception("Invalid join year");
         }
         _joinYear=joinyear;
